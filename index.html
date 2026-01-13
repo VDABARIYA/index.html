@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dvekah AI</title>
+</head>
+<body>
+
+  <h2>Dvekah AI</h2>
+
+  <textarea id="prompt" placeholder="Yaha prompt likho"></textarea>
+  <br><br>
+  <button onclick="generate()">Generate</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function generate() {
+      const prompt = document.getElementById("prompt").value;
+
+      const res = await fetch(
+        "https://dvekah-backend.vercel.app/api/generate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ prompt })
+        }
+      );
+
+      const data = await res.json();
+      document.getElementById("output").innerText =
+        data.result || JSON.stringify(data);
+    }
+  </script>
+
+</body>
+</html>
