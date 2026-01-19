@@ -1,38 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Dvekah AI</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Generator</title>
 </head>
 <body>
+    <h1>Videeka.ai Content Generator</h1>
 
-  <h2>Dvekah AI</h2>
+    <!-- Prompt input -->
+    <textarea id="promptInput" placeholder="Type your prompt here..." rows="4" cols="50"></textarea><br><br>
 
-  <textarea id="prompt" placeholder="Yaha prompt likho"></textarea>
-  <br><br>
-  <button onclick="generate()">Generate</button>
+    <!-- Generate button -->
+    <button id="generateBtn">Generate</button>
 
-  <pre id="output"></pre>
+    <!-- Output -->
+    <div id="output" style="margin-top:20px; border:1px solid #ccc; padding:10px; width:50%; min-height:50px;"></div>
 
-  <script>
-    async function generate() {
-      const prompt = document.getElementById("prompt").value;
+    <!-- JS script -->
+    <script>
+        document.getElementById("generateBtn").addEventListener("click", async function() {
+            const prompt = document.getElementById("promptInput").value;
+            if (!prompt) return alert("Please enter a prompt!");
 
-      const res = await fetch(
-        "https://dvekah-backend.vercel.app/api/generate",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({ prompt })
-        }
-      );
+            document.getElementById("output").innerText = "Generating...";
 
-      const data = await res.json();
-      document.getElementById("output").innerText =
-        data.result || JSON.stringify(data);
-    }
-  </script>
+            try {
+                // Temporary fake AI generation for testing
+                // Replace this fetch with your backend API later
+                await new Promise(resolve => setTimeout(resolve, 1000)); // simulates API delay
+                const result = "Generated content for: " + prompt;
 
+                document.getElementById("output").innerText = result;
+            } catch (err) {
+                console.error(err);
+                document.getElementById("output").innerText = "Error generating content.";
+            }
+        });
+    </script>
 </body>
 </html>
